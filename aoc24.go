@@ -2,6 +2,7 @@ package main
 
 import (
 	"aoc24/day1"
+	"aoc24/day2"
 	"flag"
 	"fmt"
 	"log"
@@ -23,8 +24,10 @@ func main() {
 	switch day_flag {
 	case 1:
 		day_solver = new(day1.Day1Solver)
+	case 2:
+		day_solver = new(day2.Solver)
 	default:
-		fmt.Println("Selected day not implemented/released")
+		log.Fatalf("Selected day not implemented/released")
 	}
 
 	if use_test_data {
