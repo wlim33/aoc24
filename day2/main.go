@@ -9,20 +9,7 @@ import (
 	"strings"
 )
 
-const SmallTestDataPath = "day2/small.txt"
-const LargeTestDataPath = "day2/full.txt"
-
 type Solver struct {
-	file_name string
-}
-
-func (d *Solver) LoadData(use_test_data bool) error {
-	if !use_test_data {
-		d.file_name = SmallTestDataPath
-	} else {
-		d.file_name = LargeTestDataPath
-	}
-	return nil
 }
 
 func abs_difference(a int, b int) int {
@@ -31,9 +18,9 @@ func abs_difference(a int, b int) int {
 	}
 	return a - b
 }
-func (d *Solver) Solve() error {
+func (d *Solver) Solve(file_name string) error {
 
-	file, err := os.Open(d.file_name)
+	file, err := os.Open(file_name)
 	if err != nil {
 		return err
 	}

@@ -10,10 +10,20 @@ import (
 )
 
 type Solver interface {
-	Solve() error
-	LoadData(bool) error
+	Solve(string) error
 }
 
+const SmallTestDataPath = "small.txt"
+const LargeTestDataPath = "full.txt"
+
+func input_path(day int, use_test_data bool) string {
+	if !use_test_data {
+		return fmt.Sprintf("day%d/%s", day, SmallTestDataPath)
+	} else {
+		return fmt.Sprintf("day%d/%s", day, LargeTestDataPath)
+
+	}
+}
 func main() {
 	var day_flag int
 	flag.IntVar(&day_flag, "d", 1, "Which day to run.")
@@ -24,7 +34,7 @@ func main() {
 	var day_solver Solver
 	switch day_flag {
 	case 1:
-		day_solver = new(day1.Day1Solver)
+		day_solver = new(day1.Solver)
 	case 2:
 		day_solver = new(day2.Solver)
 	case 3:
@@ -38,12 +48,9 @@ func main() {
 	} else {
 		fmt.Printf("Selected day %d(with example data)\n", day_flag)
 	}
-	err := day_solver.LoadData(use_test_data)
-	if err != nil {
-		log.Fatalf("Error trying to load data for day %d:\n%s", day_flag, err)
-	}
+	path := input_path(day_flag, use_test_data)
 
-	err = day_solver.Solve()
+	err := day_solver.Solve(path)
 	if err != nil {
 		log.Fatalf("Error trying to solve day %d:\n%s", day_flag, err)
 	}

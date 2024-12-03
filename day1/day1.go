@@ -10,9 +10,6 @@ import (
 	"strings"
 )
 
-const SmallTestDataPath = "day1/small.txt"
-const LargeTestDataPath = "day1/full.txt"
-
 type IntHeap []int
 
 func (h IntHeap) Len() int           { return len(h) }
@@ -33,21 +30,11 @@ func (h *IntHeap) Pop() any {
 	return x
 }
 
-type Day1Solver struct {
-	file_name string
+type Solver struct {
 }
 
-func (d *Day1Solver) LoadData(use_test_data bool) error {
-	if !use_test_data {
-		d.file_name = SmallTestDataPath
-	} else {
-		d.file_name = LargeTestDataPath
-	}
-	return nil
-}
-
-func (d *Day1Solver) Solve() error {
-	file, err := os.Open(d.file_name)
+func (d *Solver) Solve(file_name string) error {
+	file, err := os.Open(file_name)
 	if err != nil {
 		return err
 	}

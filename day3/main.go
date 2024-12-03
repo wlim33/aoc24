@@ -9,25 +9,11 @@ import (
 	"strconv"
 )
 
-const SmallTestDataPath = "day3/small.txt"
-const LargeTestDataPath = "day3/full.txt"
+type Solver struct{}
 
-type Solver struct {
-	file_name string
-}
+func (d *Solver) Solve(file_name string) error {
 
-func (d *Solver) LoadData(use_test_data bool) error {
-	if !use_test_data {
-		d.file_name = SmallTestDataPath
-	} else {
-		d.file_name = LargeTestDataPath
-	}
-	return nil
-}
-
-func (d *Solver) Solve() error {
-
-	file, err := os.Open(d.file_name)
+	file, err := os.Open(file_name)
 	if err != nil {
 		return err
 	}
