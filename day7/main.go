@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -41,14 +42,19 @@ func (d *Solver) Solve(file_name string) error {
 		if err != nil {
 			return err
 		}
+		if _, ok := inputs[left]; ok {
+			fmt.Println("ieanrs;ienarst")
+			return nil
+		}
 		inputs[left] = r
 	}
+
 	var acc uint64
 	acc = 0
 
 	for left, right := range inputs {
 		if can_compute(left, right) {
-			fmt.Println(left, right)
+			// fmt.Println(left, right)
 			acc += left
 		}
 	}
@@ -59,6 +65,7 @@ func (d *Solver) Solve(file_name string) error {
 const (
 	add = iota
 	multiply
+	concatenate
 )
 
 type StackItem struct {
@@ -82,15 +89,36 @@ func can_compute(total uint64, operands []uint64) bool {
 					acc = acc * operand
 				case add:
 					acc = acc + operand
+				case concatenate:
+					acc = (acc * zero_padding(operand)) + operand
 				}
 			}
 			if acc == total {
 				return true
 			}
+
 		} else {
-			stack = append(stack, StackItem{append(current.operators, add)})
-			stack = append(stack, StackItem{append(current.operators, multiply)})
+			c := slices.Clone(current.operators)
+			d := slices.Clone(current.operators)
+			e := slices.Clone(current.operators)
+			stack = append(stack, StackItem{append(c, add)})
+			stack = append(stack, StackItem{append(d, multiply)})
+			stack = append(stack, StackItem{append(e, concatenate)})
 		}
 	}
 	return false
+}
+
+func zero_padding(num uint64) uint64 {
+	if num == 0 {
+		return 1
+	}
+	var tens uint64
+	tens = 1
+	for num != 0 {
+		num = num / 10
+		tens = tens * 10
+	}
+	return tens
+
 }
