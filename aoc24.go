@@ -5,6 +5,10 @@ import (
 	"aoc24/day2"
 	"aoc24/day3"
 	"aoc24/day4"
+	"aoc24/day5"
+	"aoc24/day6"
+	"aoc24/day7"
+	"aoc24/day8"
 	"flag"
 	"fmt"
 	"log"
@@ -42,6 +46,14 @@ func main() {
 		day_solver = new(day3.Solver)
 	case 4:
 		day_solver = new(day4.Solver)
+	case 5:
+		day_solver = new(day5.Solver)
+	case 6:
+		day_solver = new(day6.Solver)
+	case 7:
+		day_solver = new(day7.Solver)
+	case 8:
+		day_solver = new(day8.Solver)
 	default:
 		log.Fatalf("Selected day not implemented/released")
 	}
