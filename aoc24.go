@@ -2,6 +2,8 @@ package main
 
 import (
 	"aoc24/day1"
+	"aoc24/day10"
+	"aoc24/day11"
 	"aoc24/day2"
 	"aoc24/day3"
 	"aoc24/day4"
@@ -9,6 +11,7 @@ import (
 	"aoc24/day6"
 	"aoc24/day7"
 	"aoc24/day8"
+	"aoc24/day9"
 	"flag"
 	"fmt"
 	"log"
@@ -54,6 +57,12 @@ func main() {
 		day_solver = new(day7.Solver)
 	case 8:
 		day_solver = new(day8.Solver)
+	case 9:
+		day_solver = new(day9.Solver)
+	case 10:
+		day_solver = new(day10.Solver)
+	case 11:
+		day_solver = new(day11.Solver)
 	default:
 		log.Fatalf("Selected day not implemented/released")
 	}
